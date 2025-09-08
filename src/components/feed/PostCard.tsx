@@ -176,8 +176,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onLike, onBookSession 
         
         {/* Post Content */}
         <div className="mb-4">
-          <p className="text-sm sm:text-base text-gray-800 leading-relaxed">{post.content}</p>
-          {post.caption && (
+       
+        <p className="text-sm sm:text-base text-gray-800 leading-relaxed whitespace-pre-line">{post.content}</p>          {post.caption && (
             <p className="text-sm text-gray-600 mt-2">{post.caption}</p>
           )}
         </div>

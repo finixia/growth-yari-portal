@@ -5,6 +5,7 @@ import { NotificationCenter } from '../notifications/NotificationCenter';
 import { ChatWindow } from '../chat/ChatWindow';
 import { CalendarView } from '../calendar/CalendarView';
 import { apiClient } from '../../config/api';
+import logo from '../../../public/image.png';
 
 interface HeaderProps {
   user: UserType;
@@ -62,18 +63,20 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+     
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-brand-primary rounded-full flex items-center justify-center">
-                <div className="w-6 h-6 border-2 border-white rounded-full relative">
-                  <div className="absolute top-1 left-1 w-2 h-2 bg-white rounded-full"></div>
-                  <div className="absolute bottom-0 right-0 w-1 h-3 bg-white rounded-full transform rotate-45"></div>
-                </div>
-              </div>
-              <h1 className="text-xl sm:text-2xl font-bold text-brand-gray">GrowthYari</h1>
+          
+              {/* Replace text logo with image logo */}
+              <img
+                src={logo}   // <-- replace with your logo path
+                alt="GrowthYari Logo"
+                className="h-20 w-auto sm:h-30"
+              />
             </div>
           </div>
+
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
@@ -81,11 +84,10 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
               <button
                 key={item.id}
                 onClick={() => onViewChange(item.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                  currentView === item.id
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${currentView === item.id
                     ? 'bg-indigo-100 text-indigo-700'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
+                  }`}
               >
                 {item.label}
               </button>
@@ -115,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
 
             {/* Desktop Action Buttons */}
             <div className="hidden sm:flex items-center space-x-2">
-              <button 
+              <button
                 onClick={() => setShowNotifications(true)}
                 className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
@@ -126,13 +128,13 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                   </span>
                 )}
               </button>
-              <button 
+              <button
                 onClick={() => setShowChat(true)}
                 className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <MessageCircle className="h-5 w-5" />
               </button>
-              <button 
+              <button
                 onClick={() => setShowCalendar(true)}
                 className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
@@ -153,7 +155,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                   <div className="text-xs text-gray-500 truncate max-w-24 xl:max-w-32">{user.profession}</div>
                 </div>
               </button>
-              
+
               {/* Dropdown Menu */}
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="py-1">
@@ -198,20 +200,19 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                     onViewChange(item.id);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`block w-full text-left px-3 py-2 rounded-lg text-base font-medium transition-colors ${
-                    currentView === item.id
+                  className={`block w-full text-left px-3 py-2 rounded-lg text-base font-medium transition-colors ${currentView === item.id
                       ? 'bg-indigo-100 text-indigo-700'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </button>
               ))}
-              
+
               {/* Mobile Action Buttons */}
               <div className="pt-4 border-t border-gray-200 sm:hidden">
                 <div className="grid grid-cols-3 gap-2">
-                  <button 
+                  <button
                     onClick={() => {
                       setShowNotifications(true);
                       setIsMobileMenuOpen(false);
@@ -226,7 +227,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                       </span>
                     )}
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       setShowChat(true);
                       setIsMobileMenuOpen(false);
@@ -236,7 +237,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                     <MessageCircle className="h-5 w-5 mb-1" />
                     <span className="text-xs">Messages</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       setShowCalendar(true);
                       setIsMobileMenuOpen(false);
@@ -248,7 +249,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                   </button>
                 </div>
               </div>
-              
+
               {/* User Section */}
               <div className="pt-4 border-t border-gray-200">
                 <div className="flex items-center px-3 py-2 mb-2">
@@ -262,7 +263,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                     <div className="text-sm text-gray-500 truncate">{user.profession}</div>
                   </div>
                 </div>
-                
+
                 <button
                   onClick={() => {
                     onViewChange('profile');
@@ -275,7 +276,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentView, onV
                     Profile
                   </div>
                 </button>
-                
+
                 <button
                   onClick={() => {
                     onLogout();

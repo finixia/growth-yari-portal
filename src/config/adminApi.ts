@@ -1,5 +1,5 @@
 // Admin API client for administrative functions
-const ADMIN_API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const ADMIN_API_BASE_URL = import.meta.env.VITE_API_URL || 'https://growthyaribackend.azurewebsites.net/api';
 
 class AdminApiClient {
   private baseURL: string;
