@@ -324,7 +324,7 @@ export const AvailabilityManager: React.FC<AvailabilityManagerProps> = ({
                         <span className="font-medium">{formatSlotTime(slot.date, slot.start_time, slot.end_time)}</span>
                       </div>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSlotTypeColor(slot.slot_type)}`}>
-                        {slot.slot_type === 'free' ? 'Free' : `$${slot.price}`}
+                        {slot.slot_type === 'free' ? 'Free' : `₹${slot.price}`}
                       </span>
                       <div className="flex items-center space-x-1 text-sm text-gray-600">
                         <Clock className="h-4 w-4" />
@@ -454,7 +454,7 @@ export const AvailabilityManager: React.FC<AvailabilityManagerProps> = ({
                     >
                       <div className="text-center">
                         <div className="font-medium">Paid</div>
-                        <div className="text-xs">${settings.defaultPaidPrice}</div>
+                        <div className="text-xs">₹{settings.defaultPaidPrice}</div>
                       </div>
                     </button>
                   </div>
@@ -462,7 +462,7 @@ export const AvailabilityManager: React.FC<AvailabilityManagerProps> = ({
                 
                 {newSlot.slot_type === 'paid' && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Price ($)</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
                     <input
                       type="number"
                       value={newSlot.price}
@@ -493,7 +493,7 @@ export const AvailabilityManager: React.FC<AvailabilityManagerProps> = ({
                       <select
                         value={newSlot.recurring_pattern}
                         onChange={(e) => setNewSlot(prev => ({ ...prev, recurring_pattern: e.target.value }))}
-                          <div className="text-xs">₹{settings.defaultPaidPrice}</div>
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                       >
                         <option value="weekly">Weekly</option>
                         <option value="daily">Daily</option>
@@ -501,7 +501,7 @@ export const AvailabilityManager: React.FC<AvailabilityManagerProps> = ({
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Until</label>
                       <input
                         type="date"
                         value={newSlot.recurring_until}

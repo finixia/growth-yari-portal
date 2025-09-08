@@ -181,13 +181,6 @@ export const UserManagement: React.FC = () => {
 
   return (
     <div>
-      {/* Debug Info */}
-      <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-        <p className="text-blue-700 text-sm">
-          Debug: Loading={loading.toString()}, Users={users.length}, Error={error || 'none'}
-        </p>
-      </div>
-
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">User Management</h1>
         <p className="text-gray-600">Manage user accounts, verification, and moderation</p>

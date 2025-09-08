@@ -252,7 +252,7 @@ export const SessionManagement: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {session.price === 0 ? 'Free' : `$${session.price}`}
+                        {session.price === 0 ? 'Free' : `₹${session.price}`}
                       </div>
                     </td>
                     <td className="px-6 py-4">
