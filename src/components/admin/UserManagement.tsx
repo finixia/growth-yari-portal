@@ -20,142 +20,106 @@ import { adminApiClient } from '../../config/adminApi';
 
 export const UserManagement: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showUserModal, setShowUserModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Debug logging
+  // Initialize with mock data immediately
   useEffect(() => {
-    console.log('UserManagement component mounted');
-    console.log('Current state:', { loading, users: users.length, error });
-  }, [loading, users, error]);
-  useEffect(() => {
-    loadUsers();
-  }, [searchQuery, filterStatus]);
+    const mockUsers: User[] = [
+      {
+        id: '1',
+        name: 'Sarah Johnson',
+        email: 'sarah@example.com',
+        profession: 'UX Designer',
+        expertise: ['User Experience', 'Design Systems', 'Prototyping'],
+        rating: 4.8,
+        reviewCount: 24,
+        isVerified: true,
+        avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+        createdAt: new Date('2024-01-15'),
+        sessionsCompleted: 45
+      },
+      {
+        id: '2',
+        name: 'Mike Chen',
+        email: 'mike@example.com',
+        profession: 'Product Manager',
+        expertise: ['Product Strategy', 'Agile', 'Data Analysis'],
+        rating: 4.9,
+        reviewCount: 31,
+        isVerified: true,
+        avatar: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+        createdAt: new Date('2024-02-03'),
+        sessionsCompleted: 67
+      },
+      {
+        id: '3',
+        name: 'Emily Rodriguez',
+        email: 'emily@example.com',
+        profession: 'Marketing Manager',
+        expertise: ['Digital Marketing', 'Content Strategy', 'SEO'],
+        rating: 4.7,
+        reviewCount: 18,
+        isVerified: false,
+        avatar: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+        createdAt: new Date('2024-02-20'),
+        sessionsCompleted: 23
+      },
+      {
+        id: '4',
+        name: 'David Kim',
+        email: 'david@example.com',
+        profession: 'Software Engineer',
+        expertise: ['React', 'Node.js', 'Cloud Architecture'],
+        rating: 4.6,
+        reviewCount: 12,
+        isVerified: true,
+        avatar: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+        createdAt: new Date('2024-03-01'),
+        sessionsCompleted: 34
+      },
+      {
+        id: '5',
+        name: 'Lisa Wang',
+        email: 'lisa@example.com',
+        profession: 'Business Coach',
+        expertise: ['Leadership', 'Team Building', 'Strategic Planning'],
+        rating: 4.9,
+        reviewCount: 42,
+        isVerified: true,
+        avatar: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+        createdAt: new Date('2024-01-08'),
+        sessionsCompleted: 89
+      }
+    ];
 
-  const loadUsers = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      console.log('UserManagement: Loading users with params:', params);
-      
-      // For development, use mock data since backend might not be available
-      const mockUsers = [
-        {
-          id: '1',
-          name: 'Sarah Johnson',
-          email: 'sarah@example.com',
-          profession: 'UX Designer',
-          expertise: ['User Experience', 'Design Systems', 'Prototyping'],
-          rating: 4.8,
-          reviewCount: 24,
-          isVerified: true,
-          avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
-          createdAt: '2024-01-15',
-          sessionsCompleted: 45
-        },
-        {
-          id: '2',
-          name: 'Mike Chen',
-          email: 'mike@example.com',
-          profession: 'Product Manager',
-          expertise: ['Product Strategy', 'Agile', 'Data Analysis'],
-          rating: 4.9,
-          reviewCount: 31,
-          isVerified: true,
-          avatar: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
-          createdAt: '2024-02-03',
-          sessionsCompleted: 67
-        },
-        {
-          id: '3',
-          name: 'Emily Rodriguez',
-          email: 'emily@example.com',
-          profession: 'Marketing Manager',
-          expertise: ['Digital Marketing', 'Content Strategy', 'SEO'],
-          rating: 4.7,
-          reviewCount: 18,
-          isVerified: false,
-          avatar: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
-          createdAt: '2024-02-20',
-          sessionsCompleted: 23
-        },
-        {
-          id: '4',
-          name: 'David Kim',
-          email: 'david@example.com',
-          profession: 'Software Engineer',
-          expertise: ['React', 'Node.js', 'Cloud Architecture'],
-          rating: 4.6,
-          reviewCount: 12,
-          isVerified: true,
-          avatar: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
-          createdAt: '2024-03-01',
-          sessionsCompleted: 34
-        },
-        {
-          id: '5',
-          name: 'Lisa Wang',
-          email: 'lisa@example.com',
-          profession: 'Business Coach',
-          expertise: ['Leadership', 'Team Building', 'Strategic Planning'],
-          rating: 4.9,
-          reviewCount: 42,
-          isVerified: true,
-          avatar: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
-          createdAt: '2024-01-08',
-          sessionsCompleted: 89
-        }
-      ];
-      
-      // Apply filters to mock data
-      let filteredUsers = mockUsers;
-      
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        filteredUsers = filteredUsers.filter(user => 
-          user.name.toLowerCase().includes(query) ||
-          user.email.toLowerCase().includes(query) ||
-          user.profession.toLowerCase().includes(query) ||
-          user.expertise.some(skill => skill.toLowerCase().includes(query))
-        );
-      }
-      
-      if (filterStatus !== 'all') {
-        if (filterStatus === 'verified') {
-          filteredUsers = filteredUsers.filter(user => user.isVerified);
-        } else if (filterStatus === 'unverified') {
-          filteredUsers = filteredUsers.filter(user => !user.isVerified);
-        }
-      }
-      
-      console.log('UserManagement: Setting filtered users:', filteredUsers.length);
-      setUsers(filteredUsers);
-    } catch (error) {
-      console.error('Failed to load users:', error);
-      setError('Failed to load users');
-    } finally {
-      setLoading(false);
-    }
-  };
+    setUsers(mockUsers);
+  }, []);
+
+  // Filter users based on search and status
+  const filteredUsers = users.filter(user => {
+    const matchesSearch = searchQuery === '' || 
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.profession.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.expertise.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    const matchesStatus = filterStatus === 'all' ||
+      (filterStatus === 'verified' && user.isVerified) ||
+      (filterStatus === 'unverified' && !user.isVerified);
+
+    return matchesSearch && matchesStatus;
+  });
 
   const handleVerifyUser = async (userId: string) => {
     try {
-      console.log('UserManagement: Verifying user:', userId);
-      const result = await adminApiClient.updateUserStatus(userId, { isVerified: true });
-      if (result.success) {
-        setUsers(prev => prev.map(user => 
-          user.id === userId ? { ...user, isVerified: true } : user
-        ));
-        console.log('UserManagement: User verified successfully');
-      } else {
-        console.error('UserManagement: Failed to verify user:', result.error);
-        setError(result.error || 'Failed to verify user');
-      }
+      setUsers(prev => prev.map(user => 
+        user.id === userId ? { ...user, isVerified: true } : user
+      ));
     } catch (error) {
       console.error('Failed to verify user:', error);
       setError('Failed to verify user');
@@ -164,14 +128,8 @@ export const UserManagement: React.FC = () => {
 
   const handleSuspendUser = async (userId: string) => {
     try {
-      console.log('UserManagement: Suspending user:', userId);
-      const result = await adminApiClient.suspendUser(userId);
-      if (result.success) {
+      if (confirm('Are you sure you want to suspend this user?')) {
         setUsers(prev => prev.filter(user => user.id !== userId));
-        console.log('UserManagement: User suspended successfully');
-      } else {
-        console.error('UserManagement: Failed to suspend user:', result.error);
-        setError(result.error || 'Failed to suspend user');
       }
     } catch (error) {
       console.error('Failed to suspend user:', error);
@@ -202,6 +160,46 @@ export const UserManagement: React.FC = () => {
         </div>
       )}
 
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-brand-primary">{users.length}</h3>
+              <p className="text-sm text-gray-600">Total Users</p>
+            </div>
+            <Shield className="h-8 w-8 text-brand-primary" />
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-green-600">{users.filter(u => u.isVerified).length}</h3>
+              <p className="text-sm text-gray-600">Verified</p>
+            </div>
+            <UserCheck className="h-8 w-8 text-green-500" />
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-yellow-600">{users.filter(u => !u.isVerified).length}</h3>
+              <p className="text-sm text-gray-600">Unverified</p>
+            </div>
+            <AlertCircle className="h-8 w-8 text-yellow-500" />
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-purple-600">{users.reduce((sum, u) => sum + (u.sessionsCompleted || 0), 0)}</h3>
+              <p className="text-sm text-gray-600">Total Sessions</p>
+            </div>
+            <Calendar className="h-8 w-8 text-purple-500" />
+          </div>
+        </div>
+      </div>
+
       {/* Filters */}
       <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
@@ -227,7 +225,6 @@ export const UserManagement: React.FC = () => {
               <option value="all">All Users</option>
               <option value="verified">Verified</option>
               <option value="unverified">Unverified</option>
-              <option value="suspended">Suspended</option>
             </select>
           </div>
         </div>
@@ -260,27 +257,20 @@ export const UserManagement: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {loading ? (
+              {filteredUsers.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-4 border-brand-primary border-t-transparent mx-auto mb-4"></div>
-                    <p className="text-gray-600">Loading users...</p>
-                  </td>
-                </tr>
-              ) : users.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center">
-                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">No users found</p>
+                    <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600">No users found matching your criteria</p>
                   </td>
                 </tr>
               ) : (
-                users.map((user) => (
+                filteredUsers.map((user) => (
                   <tr key={user.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
                         <img
-                          src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff`}
+                          src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=2d5016&color=fff`}
                           alt={user.name}
                           className="w-10 h-10 rounded-full"
                         />
@@ -338,7 +328,7 @@ export const UserManagement: React.FC = () => {
                           className="p-2 text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
                           title="View Details"
                         >
-                          <MoreVertical className="h-4 w-4" />
+                          <Eye className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => handleSuspendUser(user.id)}
@@ -368,6 +358,28 @@ export const UserManagement: React.FC = () => {
       )}
     </div>
   );
+
+  const handleVerifyUser = async (userId: string) => {
+    try {
+      setUsers(prev => prev.map(user => 
+        user.id === userId ? { ...user, isVerified: true } : user
+      ));
+    } catch (error) {
+      console.error('Failed to verify user:', error);
+      setError('Failed to verify user');
+    }
+  };
+
+  const handleSuspendUser = async (userId: string) => {
+    try {
+      if (confirm('Are you sure you want to suspend this user?')) {
+        setUsers(prev => prev.filter(user => user.id !== userId));
+      }
+    } catch (error) {
+      console.error('Failed to suspend user:', error);
+      setError('Failed to suspend user');
+    }
+  };
 };
 
 const UserDetailsModal: React.FC<{
@@ -386,7 +398,7 @@ const UserDetailsModal: React.FC<{
               onClick={onClose}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <XCircle className="h-5 w-5 text-gray-500" />
+              <X className="h-5 w-5 text-gray-500" />
             </button>
           </div>
         </div>
@@ -394,7 +406,7 @@ const UserDetailsModal: React.FC<{
         <div className="p-6">
           <div className="flex items-start space-x-6 mb-6">
             <img
-              src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff`}
+              src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=2d5016&color=fff`}
               alt={user.name}
               className="w-20 h-20 rounded-full"
             />
@@ -425,7 +437,7 @@ const UserDetailsModal: React.FC<{
                 {user.expertise.map((skill, index) => (
                   <span
                     key={index}
-                    className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+                    className="px-2 py-1 bg-brand-primary/10 text-brand-primary text-xs rounded-full"
                   >
                     {skill}
                   </span>
