@@ -71,7 +71,7 @@ export const AdminAnalytics: React.FC = () => {
   if (loading) {
     return (
       <div className="text-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-red-600 border-t-transparent mx-auto mb-4"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-brand-primary border-t-transparent mx-auto mb-4"></div>
         <p className="text-gray-600">Loading analytics...</p>
       </div>
     );
@@ -87,7 +87,7 @@ export const AdminAnalytics: React.FC = () => {
         <select
           value={timeRange}
           onChange={(e) => setTimeRange(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
         >
           <option value="24h">Last 24 Hours</option>
           <option value="7d">Last 7 Days</option>

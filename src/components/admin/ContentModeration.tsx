@@ -167,7 +167,7 @@ export const ContentModeration: React.FC = () => {
         <div className="divide-y divide-gray-200">
           {loading ? (
             <div className="p-12 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-4 border-red-600 border-t-transparent mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-4 border-brand-primary border-t-transparent mx-auto mb-4"></div>
               <p className="text-gray-600">Loading reported content...</p>
             </div>
           ) : reportedContent.length === 0 ? (
@@ -224,7 +224,7 @@ export const ContentModeration: React.FC = () => {
                       <>
                         <button
                           onClick={() => handleApproveContent(report.id)}
-                          className="p-2 text-green-600 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors"
+                          className="p-2 text-brand-primary hover:text-brand-secondary hover:bg-brand-primary/10 rounded-lg transition-colors"
                           title="Approve"
                         >
                           <CheckCircle className="h-4 w-4" />
