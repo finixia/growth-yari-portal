@@ -358,28 +358,6 @@ export const UserManagement: React.FC = () => {
       )}
     </div>
   );
-
-  const handleVerifyUser = async (userId: string) => {
-    try {
-      setUsers(prev => prev.map(user => 
-        user.id === userId ? { ...user, isVerified: true } : user
-      ));
-    } catch (error) {
-      console.error('Failed to verify user:', error);
-      setError('Failed to verify user');
-    }
-  };
-
-  const handleSuspendUser = async (userId: string) => {
-    try {
-      if (confirm('Are you sure you want to suspend this user?')) {
-        setUsers(prev => prev.filter(user => user.id !== userId));
-      }
-    } catch (error) {
-      console.error('Failed to suspend user:', error);
-      setError('Failed to suspend user');
-    }
-  };
 };
 
 const UserDetailsModal: React.FC<{
