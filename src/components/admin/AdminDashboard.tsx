@@ -179,13 +179,13 @@ const AdminOverview: React.FC<{ stats: any; admin: any }> = ({ stats, admin }) =
       </div>
 
       <div className="mb-8">
-        <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-6 text-white">
+        <div className="bg-gradient-to-r from-brand-primary to-brand-secondary rounded-2xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold mb-2">Platform Status</h2>
-              <p className="text-red-100">All systems operational</p>
+              <p className="text-green-100">All systems operational</p>
             </div>
-            <Shield className="h-12 w-12 text-red-200" />
+            <Shield className="h-12 w-12 text-green-200" />
           </div>
         </div>
       </div>

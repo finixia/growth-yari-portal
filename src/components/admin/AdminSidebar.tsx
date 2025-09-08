@@ -40,7 +40,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 bg-brand-primary rounded-full flex items-center justify-center">
             <Shield className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -59,7 +59,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
               onClick={() => onViewChange(item.id)}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                 currentView === item.id
-                  ? 'bg-red-100 text-red-700 border border-red-200'
+                  ? 'bg-brand-primary/10 text-brand-primary border border-brand-primary/20'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >
@@ -74,7 +74,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       <div className="p-4 border-t border-gray-200">
         <button
           onClick={onLogout}
-          className="w-full flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          className="w-full flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-brand-primary hover:bg-brand-primary/10 rounded-lg transition-colors"
         >
           <LogOut className="h-5 w-5" />
           <span className="font-medium">Sign Out</span>

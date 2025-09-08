@@ -178,7 +178,7 @@ export const SystemSettings: React.FC = () => {
         <button
           onClick={saveConfig}
           disabled={saving}
-          className="flex items-center space-x-2 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="flex items-center space-x-2 px-6 py-3 bg-brand-primary text-white rounded-lg hover:bg-brand-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {saving ? (
             <>
@@ -223,7 +223,7 @@ export const SystemSettings: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 py-4 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-red-500 text-red-600'
+                    ? 'border-brand-primary text-brand-primary'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -244,7 +244,7 @@ export const SystemSettings: React.FC = () => {
                   type="text"
                   value={config.platform.name}
                   onChange={(e) => updateConfig('platform', 'name', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                 />
               </div>
               
@@ -254,7 +254,7 @@ export const SystemSettings: React.FC = () => {
                   value={config.platform.description}
                   onChange={(e) => updateConfig('platform', 'description', e.target.value)}
                   rows={3}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                 />
               </div>
 
@@ -265,7 +265,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.platform.maintenanceMode}
                       onChange={(e) => updateConfig('platform', 'maintenanceMode', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">Maintenance Mode</span>
                   </label>
@@ -278,7 +278,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.platform.registrationEnabled}
                       onChange={(e) => updateConfig('platform', 'registrationEnabled', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">Registration Enabled</span>
                   </label>
@@ -296,7 +296,7 @@ export const SystemSettings: React.FC = () => {
                     type="checkbox"
                     checked={config.email.enabled}
                     onChange={(e) => updateConfig('email', 'enabled', e.target.checked)}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                   />
                   <span className="text-sm font-medium text-gray-700">Email Service Enabled</span>
                 </label>
@@ -309,7 +309,7 @@ export const SystemSettings: React.FC = () => {
                     type="text"
                     value={config.email.smtpHost}
                     onChange={(e) => updateConfig('email', 'smtpHost', e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                     disabled={!config.email.enabled}
                   />
                 </div>
@@ -320,7 +320,7 @@ export const SystemSettings: React.FC = () => {
                     type="number"
                     value={config.email.smtpPort}
                     onChange={(e) => updateConfig('email', 'smtpPort', parseInt(e.target.value))}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                     disabled={!config.email.enabled}
                   />
                 </div>
@@ -332,7 +332,7 @@ export const SystemSettings: React.FC = () => {
                   type="email"
                   value={config.email.fromEmail}
                   onChange={(e) => updateConfig('email', 'fromEmail', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                   disabled={!config.email.enabled}
                 />
               </div>
@@ -347,7 +347,7 @@ export const SystemSettings: React.FC = () => {
                     type="checkbox"
                     checked={config.payments.stripeEnabled}
                     onChange={(e) => updateConfig('payments', 'stripeEnabled', e.target.checked)}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                   />
                   <span className="text-sm font-medium text-gray-700">Stripe Payments Enabled</span>
                 </label>
@@ -363,7 +363,7 @@ export const SystemSettings: React.FC = () => {
                     min="0"
                     max="30"
                     step="0.5"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                     disabled={!config.payments.stripeEnabled}
                   />
                 </div>
@@ -376,7 +376,7 @@ export const SystemSettings: React.FC = () => {
                     onChange={(e) => updateConfig('payments', 'minimumSessionPrice', parseFloat(e.target.value))}
                     min="0"
                     step="5"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                     disabled={!config.payments.stripeEnabled}
                   />
                 </div>
@@ -387,7 +387,7 @@ export const SystemSettings: React.FC = () => {
                 <select
                   value={config.payments.currency}
                   onChange={(e) => updateConfig('payments', 'currency', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                   disabled={!config.payments.stripeEnabled}
                 >
                   <option value="USD">USD - US Dollar</option>
@@ -410,7 +410,7 @@ export const SystemSettings: React.FC = () => {
                     onChange={(e) => updateConfig('security', 'sessionTimeout', parseInt(e.target.value))}
                     min="1"
                     max="168"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                   />
                 </div>
 
@@ -422,7 +422,7 @@ export const SystemSettings: React.FC = () => {
                     onChange={(e) => updateConfig('security', 'maxLoginAttempts', parseInt(e.target.value))}
                     min="3"
                     max="10"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
                   />
                 </div>
               </div>
@@ -434,7 +434,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.security.requireEmailVerification}
                       onChange={(e) => updateConfig('security', 'requireEmailVerification', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">Require Email Verification</span>
                   </label>
@@ -447,7 +447,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.security.enableTwoFactor}
                       onChange={(e) => updateConfig('security', 'enableTwoFactor', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">Enable Two-Factor Authentication</span>
                   </label>
@@ -466,7 +466,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.features.yariConnectEnabled}
                       onChange={(e) => updateConfig('features', 'yariConnectEnabled', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">YariConnect</span>
                   </label>
@@ -479,7 +479,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.features.freeSessionsEnabled}
                       onChange={(e) => updateConfig('features', 'freeSessionsEnabled', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">Free Sessions</span>
                   </label>
@@ -492,7 +492,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.features.chatEnabled}
                       onChange={(e) => updateConfig('features', 'chatEnabled', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">Chat System</span>
                   </label>
@@ -505,7 +505,7 @@ export const SystemSettings: React.FC = () => {
                       type="checkbox"
                       checked={config.features.notificationsEnabled}
                       onChange={(e) => updateConfig('features', 'notificationsEnabled', e.target.checked)}
-                      className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-brand-primary focus:ring-brand-primary border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">Notifications</span>
                   </label>
