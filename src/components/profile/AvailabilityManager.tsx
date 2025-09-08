@@ -493,7 +493,7 @@ export const AvailabilityManager: React.FC<AvailabilityManagerProps> = ({
                       <select
                         value={newSlot.recurring_pattern}
                         onChange={(e) => setNewSlot(prev => ({ ...prev, recurring_pattern: e.target.value }))}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-brand-primary"
+                          <div className="text-xs">₹{settings.defaultPaidPrice}</div>
                       >
                         <option value="weekly">Weekly</option>
                         <option value="daily">Daily</option>
@@ -501,7 +501,7 @@ export const AvailabilityManager: React.FC<AvailabilityManagerProps> = ({
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Until</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
                       <input
                         type="date"
                         value={newSlot.recurring_until}
