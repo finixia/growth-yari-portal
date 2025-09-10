@@ -4,7 +4,6 @@ export interface User {
   name: string;
   email: string;
   avatar?: string;
-  cover_photo?: string;
   bio?: string;
   profession?: string;
   expertise: string[];

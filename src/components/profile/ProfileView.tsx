@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, Edit, MapPin, Link, Star, Calendar, Award, Save, X, Clock, Upload, Loader } from 'lucide-react';
+import { Camera, Edit, MapPin, Link, Star, Calendar, Award, Save, X, Clock, Upload, Loader, Users, FileText } from 'lucide-react';
 import { User } from '../../types';
 import { apiClient } from '../../config/api';
 import { AvailabilityManager } from './AvailabilityManager';
@@ -70,8 +70,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user: initialUser, onU
         profession: editedUser.profession,
         bio: editedUser.bio,
         expertise: editedUser.expertise,
-        social_links: editedUser.socialLinks,
-        cover_photo: coverPhoto
+        social_links: editedUser.socialLinks
       };
 
       const result = await apiClient.updateProfile(updateData);
@@ -160,18 +159,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ user: initialUser, onU
         console.log('Cover photo uploaded:', result.data.url);
         setCoverPhoto(result.data.url);
         
-        // Update user profile with new cover photo
-        const updateResult = await apiClient.updateProfile({ cover_photo: result.data.url });
-        if (updateResult.success && updateResult.data) {
-          setUser(updateResult.data.user);
-          setEditedUser(updateResult.data.user);
-          if (onUserUpdate) {
-            onUserUpdate(updateResult.data.user);
-          }
-          console.log('Cover photo updated successfully');
-        } else {
-          setError('Failed to update cover photo');
-        }
+        // For now, just update local state since backend doesn't support cover_photo yet
+        console.log('Cover photo set locally (backend support needed)');
       } else {
         setError(result.error || 'Failed to upload cover photo');
       }
