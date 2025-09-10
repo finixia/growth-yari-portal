@@ -173,13 +173,16 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ isOpen, onClose }) =
       
       const result = await apiClient.updateSessionStatus(sessionId, 'confirmed');
       if (result.success) {
+        // Generate a fallback meeting link if backend doesn't provide one
+        const meetingLink = result.data?.session?.meeting_link || generateValidMeetingLink(sessionId, 'Session');
+        
         // Update the event in local state
         setEvents(prev => prev.map(event => 
           event.id === sessionId 
             ? { 
                 ...event, 
                 status: 'confirmed',
-                meeting_link: result.data?.session?.meeting_link || event.meeting_link
+                meeting_link: meetingLink
               }
             : event
         ));
@@ -189,11 +192,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ isOpen, onClose }) =
           setSelectedEvent(prev => prev ? {
             ...prev,
             status: 'confirmed',
-            meeting_link: result.data?.session?.meeting_link || prev.meeting_link
+            meeting_link: meetingLink
           } : null);
         }
         
-        console.log('Calendar: Session confirmed successfully with meeting link:', result.data?.session?.meeting_link);
+        console.log('Calendar: Session confirmed successfully with meeting link:', meetingLink);
       } else {
         console.error('Failed to confirm session:', result.error);
         setError(result.error || 'Failed to confirm session');

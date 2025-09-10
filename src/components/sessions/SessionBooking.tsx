@@ -316,7 +316,7 @@ export const SessionBooking: React.FC<SessionBookingProps> = ({ expert, onClose,
                     {availabilitySettings.defaultPaidDuration}-minute deep dive session
                   </p>
                   <p className="text-xs text-brand-primary font-medium mt-1">
-                    Starting from ${availabilitySettings.defaultPaidPrice}
+                    Starting from ₹{availabilitySettings.defaultPaidPrice}
                   </p>
                 </button>
               </div>
@@ -424,7 +424,7 @@ export const SessionBooking: React.FC<SessionBookingProps> = ({ expert, onClose,
                       </div>
                       <div className="text-right">
                         <div className="text-base sm:text-lg font-semibold text-gray-900">
-                          {slot.price === 0 ? 'Free' : `$${slot.price}`}
+                          {slot.price === 0 ? 'Free' : `₹${slot.price}`}
                         </div>
                         <div className="text-sm text-gray-500">{slot.duration} min</div>
                       </div>

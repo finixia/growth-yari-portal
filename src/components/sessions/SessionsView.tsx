@@ -151,18 +151,21 @@ export const SessionsView: React.FC<SessionsViewProps> = ({ onOpenChat }) => {
       console.log('Expert confirming session:', sessionId);
       const result = await apiClient.updateSessionStatus(sessionId, 'confirmed');
       if (result.success) {
+        // Generate a fallback meeting link if backend doesn't provide one
+        const meetingLink = result.data?.session?.meeting_link || generateValidMeetingLink(sessionId, 'Session');
+        
         // Update the session in the local state
         setSessions(prev => prev.map(session => 
           session.id === sessionId 
             ? { 
                 ...session, 
                 status: 'confirmed' as const,
-                meeting_link: result.data?.session?.meeting_link || session.meeting_link,
-                meetingLink: result.data?.session?.meeting_link || session.meetingLink
+                meeting_link: meetingLink,
+                meetingLink: meetingLink
               }
             : session
         ));
-        console.log('Session confirmed successfully with meeting link:', result.data?.session?.meeting_link);
+        console.log('Session confirmed successfully with meeting link:', meetingLink);
       } else {
         setError(result.error || 'Failed to confirm session');
       }
