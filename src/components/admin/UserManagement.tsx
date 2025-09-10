@@ -12,6 +12,172 @@ import {
   Ban,
   CheckCircle,
   XCircle,
+  AlertCircle,
+  Eye
+} from 'lucide-react';
+import { User } from '../../types';
+import { adminApiClient } from '../../config/adminApi';
+
+export const UserManagement: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const loadUsers = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      // Use mock data for development
+      const mockUsers: User[] = [
+        {
+          id: '1',
+          name: 'Sarah Johnson',
+          email: 'sarah.johnson@email.com',
+          avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+          profession: 'UX Designer',
+          bio: 'Passionate UX designer with 8+ years of experience creating user-centered digital experiences.',
+          expertise: ['User Experience', 'Design Systems', 'Prototyping', 'User Research'],
+          rating: 4.8,
+          reviewCount: 24,
+          isVerified: true,
+          location: 'San Francisco, CA',
+          experience: '8+ years',
+          field: 'Design & Creative',
+          sessionsCompleted: 45,
+          totalEarnings: 3200,
+          createdAt: new Date('2024-01-15')
+        },
+        {
+          id: '2',
+          name: 'Mike Chen',
+          email: 'mike.chen@email.com',
+          avatar: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+          profession: 'Product Manager',
+          bio: 'Senior Product Manager specializing in B2B SaaS products and growth strategies.',
+          expertise: ['Product Strategy', 'Growth Hacking', 'Analytics', 'Team Leadership'],
+          rating: 4.9,
+          reviewCount: 31,
+          isVerified: true,
+          location: 'New York, NY',
+          experience: '10+ years',
+          field: 'Product & Strategy',
+          sessionsCompleted: 67,
+          totalEarnings: 5400,
+          createdAt: new Date('2024-02-20')
+        },
+        {
+          id: '3',
+          name: 'Emily Rodriguez',
+          email: 'emily.rodriguez@email.com',
+          avatar: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+          profession: 'Marketing Manager',
+          bio: 'Digital marketing expert with focus on content strategy and social media growth.',
+          expertise: ['Digital Marketing', 'Content Strategy', 'Social Media', 'SEO'],
+          rating: 4.7,
+          reviewCount: 18,
+          isVerified: false,
+          location: 'Austin, TX',
+          experience: '6+ years',
+          field: 'Marketing & Sales',
+          sessionsCompleted: 23,
+          totalEarnings: 1800,
+          createdAt: new Date('2024-03-10')
+        },
+        {
+          id: '4',
+          name: 'David Kim',
+          email: 'david.kim@email.com',
+          avatar: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+          profession: 'Software Engineer',
+          bio: 'Full-stack developer with expertise in React, Node.js, and cloud architecture.',
+          expertise: ['React', 'Node.js', 'AWS', 'System Design', 'Microservices'],
+          rating: 4.6,
+          reviewCount: 15,
+          isVerified: true,
+          location: 'Seattle, WA',
+          experience: '7+ years',
+          field: 'Technology & Engineering',
+          sessionsCompleted: 34,
+          totalEarnings: 2700,
+          createdAt: new Date('2024-04-05')
+        },
+        {
+          id: '5',
+          name: 'Lisa Thompson',
+          email: 'lisa.thompson@email.com',
+          avatar: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
+          profession: 'Business Coach',
+          bio: 'Executive coach helping professionals advance their careers and leadership skills.',
+          expertise: ['Leadership', 'Career Development', 'Executive Coaching', 'Team Building'],
+          rating: 4.9,
+          reviewCount: 42,
+          isVerified: true,
+          location: 'Chicago, IL',
+          experience: '12+ years',
+          field: 'Consulting & Strategy',
+          sessionsCompleted: 89,
+          totalEarnings: 7200,
+          createdAt: new Date('2024-01-08')
+        }
+      ];
+      
+      setUsers(mockUsers);
+    } catch (error) {
+      console.error('Failed to load users:', error);
+      setError('Failed to load users');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyUser = async (userId: string) => {
+    try {
+      console.log('Verifying user:', userId);
+      setUsers(prev => prev.map(user =>
+        user.id === userId ? { ...user, isVerified: true } : user
+      ));
+      setShowUserModal(false);
+    } catch (error) {
+      console.error('Failed to verify user:', error);
+      setError('Failed to verify user');
+    }
+  };
+
+  const handleSuspendUser = async (userId: string) => {
+    try {
+      console.log('Suspending user:', userId);
+      if (confirm('Are you sure you want to suspend this user?')) {
+        setUsers(prev => prev.filter(user => user.id !== userId));
+        setShowUserModal(false);
+      }
+    } catch (error) {
+      console.error('Failed to suspend user:', error);
+      setError('Failed to suspend user');
+    }
+  };
+
+  // Filter users based on search and status
+  const filteredUsers = users.filter(user => {
+    const matchesSearch = searchQuery === '' || 
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.profession?.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesStatus = filterStatus === 'all' ||
+      (filterStatus === 'verified' && user.isVerified) ||
+      (filterStatus === 'unverified' && !user.isVerified);
+    
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div>
@@ -133,7 +299,14 @@ import {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {filteredUsers.length === 0 ? (
+              {loading ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-12 text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-4 border-brand-primary border-t-transparent mx-auto mb-4"></div>
+                    <p className="text-gray-600">Loading users...</p>
+                  </td>
+                </tr>
+              ) : filteredUsers.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center">
                     <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
